@@ -1,0 +1,5 @@
+# 일반 CD(Harness push 배포) 전용 values. Harness 가 렌더링 시 <+...> 표현식을 채운다.
+greeting: "hello from <+env.name> via Harness CD (<+artifacts.primary.tag>)"
+replicas: 1
+image:
+  tag: "<+artifacts.primary.tag>"
