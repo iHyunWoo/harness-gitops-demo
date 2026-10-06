@@ -44,3 +44,15 @@ curl localhost:8080   # hello from dev (v5 via Harness pipeline)
 - PR 파이프라인: 실행 시 `environmentRef`(dev/prod) 와 `greeting` 을 입력 → Delegate 가 `envs/<env>/values.yaml` 수정 브랜치·PR 생성 → 머지 → `hello-web-<env>` Sync.
 - Fetch Linked Apps 단계는 Service 의 Deployment Repo 매니페스트가 **ApplicationSet YAML** 이어야 동작한다. 이 데모는 Application 을 직접 만들었으므로 빼고, GitOps Sync 에 앱 이름을 직접 지정했다.
 - GitHub 커넥터 `github_demo` 는 프로젝트 시크릿 `github_token` 을 쓴다.
+
+## 모니터링 (Harness Monitored Service)
+
+클러스터 `monitoring` 네임스페이스에 Prometheus · Loki · Promtail (helm), `loadgen` 에 dev 로 2초마다 요청하는 트래픽 생성기.
+
+| Harness | 값 |
+|---|---|
+| Connector | `prometheus_demo` → `http://prometheus-server.monitoring/`, `loki_demo`(Custom Health) → `http://loki.monitoring:3100/` (둘 다 Delegate 경유) |
+| Monitored Service | `hello_web_dev` (= Service `hello_web` × Environment `dev`) |
+| Health Source | Prometheus: cpu / memory / restarts (pod 별), Loki: `{namespace="hello-dev", container="hello-web"}` |
+
+Harness → Project `gitops-demo` → Monitored Services(또는 Service Reliability) → `hello_web_dev` 에서 확인.
