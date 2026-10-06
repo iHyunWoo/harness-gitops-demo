@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-web
+  labels:
+    app: hello-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-web
+  template:
+    metadata:
+      labels:
+        app: hello-web
+    spec:
+      containers:
+        - name: hello-web
+          image: hashicorp/http-echo:1.0
+          args:
+            - -listen=:5678
+            - -text=$(GREETING)
+          env:
+            - name: GREETING
+              valueFrom:
+                configMapKeyRef:
+                  name: hello-web-config
+                  key: greeting
+          ports:
+            - containerPort: 5678
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              memory: 32Mi
