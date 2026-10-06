@@ -1,0 +1,2 @@
+greeting: hello from prod (v1)
+replicas: 2

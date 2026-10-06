@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hello-web
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       app: hello-web
@@ -16,16 +16,10 @@ spec:
     spec:
       containers:
         - name: hello-web
-          image: hashicorp/http-echo:1.0
+          image: {{ .Values.image }}
           args:
             - -listen=:5678
-            - -text=$(GREETING)
-          env:
-            - name: GREETING
-              valueFrom:
-                configMapKeyRef:
-                  name: hello-web-config
-                  key: greeting
+            - -text={{ .Values.greeting }}
           ports:
             - containerPort: 5678
           resources:
