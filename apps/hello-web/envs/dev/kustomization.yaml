@@ -10,4 +10,4 @@ replicas:
 configMapGenerator:
   - name: hello-web-config
     literals:
-      - greeting=hello from dev (v1)
+      - greeting=hello from dev (v2)
