@@ -1,4 +1,4 @@
-greeting: hello from dev (v7, http-echo 1.0.0)
+greeting: hello from dev (v6 with Verify)
 replicas: 1
 image:
-  tag: 1.0.0
+  tag: "1.0"
