@@ -58,3 +58,14 @@ curl localhost:8080   # hello from dev (v5 via Harness pipeline)
 | Health Source | Prometheus: cpu / memory / restarts (pod 별), Loki: `{namespace="hello-dev", container="hello-web"}` |
 
 Harness → Project `gitops-demo` → Monitored Services(또는 Service Reliability) → `hello_web_dev` 에서 확인.
+
+## 일반 CD(push) 비교용
+
+| Harness | 값 |
+|---|---|
+| Connector | `k8s_local` (K8sCluster, Delegate 권한 상속, selector `kind-delegate`) |
+| Infrastructure Definition | `dev`/`prod` Environment 각각 `local_kind` → ns `hello-cd-dev` / `hello-cd-prod` |
+| Service | `hello_web_cd` (GitOps 아님) — HelmChart `apps/hello-web/chart` + values `apps/hello-web/cd/values.yaml`(Harness 표현식), Artifact 동일 |
+| Pipeline | `hello_web_cd_deploy` — K8s Rolling Deploy / 실패 시 Rolling Rollback (입력: Environment, 이미지 태그) |
+
+같은 Environment 에 **GitOps Cluster 링크(GitOps 용)** 와 **Infrastructure Definition(일반 CD 용)** 이 함께 붙는다.
