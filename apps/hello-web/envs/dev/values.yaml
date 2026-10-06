@@ -1,2 +1,2 @@
-greeting: hello from dev (v5 via Harness pipeline)
+greeting: hello from dev (v6 with Verify)
 replicas: 1
