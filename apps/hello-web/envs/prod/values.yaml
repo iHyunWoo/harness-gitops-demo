@@ -1,4 +1,4 @@
-greeting: hello from prod (v1)
+greeting: hello from prod (v2, http-echo 1.0.0)
 replicas: 2
 image:
-  tag: "1.0"
+  tag: 1.0.0
