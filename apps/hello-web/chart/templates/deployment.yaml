@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: hello-web
-          image: {{ .Values.image }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args:
             - -listen=:5678
             - -text={{ .Values.greeting }}

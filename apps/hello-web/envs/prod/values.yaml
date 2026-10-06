@@ -1,2 +1,4 @@
 greeting: hello from prod (v1)
 replicas: 2
+image:
+  tag: "1.0"
